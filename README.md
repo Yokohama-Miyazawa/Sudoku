@@ -1,7 +1,8 @@
 # Sudoku  
 与えられた数独の盤面(9x9)について、MiniSATを用いて求解する  
 MiniSATは自分でコンパイルした物をREADME.mdと同じディレクトリに配置すること  
-MacのHomebrewで入るcryptominisatはオプションの書き方と出力結果の形式が異なるので、そのままでは動かない。cryptominisatを使う際は`solve_sudoku.py`を修正すること。  
+MacのHomebrewで入るcryptominisatはオプションの書き方と出力結果の形式が異なるので、そのままでは動かない  
+cryptominisatを使う際は`solve_sudoku.py`を修正すること  
 
 ## 構成物  
 - solve_sudoku.py 数独を解くプログラム
