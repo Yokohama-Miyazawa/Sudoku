@@ -1,0 +1,3 @@
+*.cnf
+minisat
+.DS_Store
