@@ -1,5 +1,5 @@
-import sys
 import subprocess
+import argparse
 
 
 def read_cnf(filename='board.txt'):
@@ -24,8 +24,13 @@ def output_decode(output, size):
 
 
 def main():
-    args = sys.argv
-    input_file = args[1]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_file", help="input file name")
+    parser.add_argument("-cm5", "--cryptominisat5", required=False, action='store_true', help="use cryptominisat5")
+
+    args = parser.parse_args()
+
+    input_file = args.input_file
 
     # 各マスに変数を割り当てる
     squares = []
@@ -96,14 +101,17 @@ def main():
     with open('sudoku.cnf', 'w') as f:
         f.write('\n'.join(cnf_line) + '\n')
 
-    #subprocess.run(["minisat", "sudoku.cnf", "output.txt"])
-    subprocess.run(["./minisat", "sudoku.cnf", "output.txt"])
-    #subprocess.run(["rm", "sudoku.cnf"])
+    if args.cryptominisat5:
+        result = ''.join(map(lambda x:x[2:], filter(lambda x:len(x) > 0 and x[0] == 'v', subprocess.run(["cryptominisat5", "sudoku.cnf"], capture_output=True, text=True).stdout.split('\n')))).split()
+    else:
+        #subprocess.run(["minisat", "sudoku.cnf", "output.txt"])
+        subprocess.run(["./minisat", "sudoku.cnf", "output.txt"])
+        #subprocess.run(["rm", "sudoku.cnf"])
 
-    with open('output.txt', 'r') as f:
-        result = f.readlines()[1].split()
+        with open('output.txt', 'r') as f:
+            result = f.readlines()[1].split()
 
-    #subprocess.run(["rm", "output.txt"])
+        #subprocess.run(["rm", "output.txt"])
 
     decoded_result = output_decode(result, size)
     board = []
