@@ -104,8 +104,10 @@ def main():
     if args.cryptominisat5:
         result = ''.join(map(lambda x:x[2:], filter(lambda x:len(x) > 0 and x[0] == 'v', subprocess.run(["cryptominisat5", "sudoku.cnf"], capture_output=True, text=True).stdout.split('\n')))).split()
     else:
-        #subprocess.run(["minisat", "sudoku.cnf", "output.txt"])
-        subprocess.run(["./minisat", "sudoku.cnf", "output.txt"])
+        subprocess.run(["minisat", "sudoku.cnf", "output.txt"])
+        # ↓自分でコンパイルしたminisatを使う場合
+        #subprocess.run(["./minisat", "sudoku.cnf", "output.txt"])
+
         #subprocess.run(["rm", "sudoku.cnf"])
 
         with open('output.txt', 'r') as f:

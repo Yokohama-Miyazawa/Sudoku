@@ -1,7 +1,6 @@
 # Sudoku
 
 与えられた数独の盤面(9x9)について、[MiniSAT](http://minisat.se) を用いて求解する  
-MiniSAT は自分でコンパイルした物を README.md と同じディレクトリに配置すること  
 Mac の Homebrew で入る cryptominisat はオプションの書き方と出力結果の形式が異なるので、そのままでは動かない  
 cryptominisat を使う際は`-cm5`, `--cryptominisat5`オプション(後述)を使用すること
 
